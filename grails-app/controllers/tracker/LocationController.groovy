@@ -1,5 +1,6 @@
 package tracker
 
+import grails.converters.JSON
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -12,11 +13,11 @@ class LocationController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond locationService.list(params), model:[locationCount: locationService.count()]
+        render locationService.list(params) as JSON
     }
 
     def show(Long id) {
-        respond locationService.get(id)
+        render locationService.get(id) as JSON
     }
 
     def save(Location location) {

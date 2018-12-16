@@ -8,6 +8,9 @@ grails:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons
             events: false
+
+    resources:
+            pattern: '/**'
 info:
     app:
         name: '@info.app.name@'
@@ -61,6 +64,8 @@ grails:
         defaultScope: singleton
     converters:
         encoding: UTF-8
+    cors:
+        enabled: true
 
 ---
 hibernate:
@@ -79,7 +84,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
+            dbCreate: validate
             url: jdbc:mysql://35.190.183.255/tracker
     test:
         dataSource:

@@ -12,8 +12,22 @@ class BootStrap {
             output['name'] = it.name
             output['code'] = it.code
             output['image'] = it.image
-            output['category'] = ["id": it.category.id, "name": it.category.name]
+
+            if(it.category) {
+                output['category'] = ["id": it.category.id, "name": it.category.name]
+            }
+
             output['location'] = ["id": it.location.id, "name": it.location.name]
+            return output
+        }
+
+        JSON.registerObjectMarshaller(Location) {
+            def output = [:]
+            output['id'] = it.id
+            output['name'] = it.name
+            output['tools'] = it.tools.collect { tool ->
+                ["id": tool.id, "name": tool.name, "code": tool.code, "image": tool.code]
+            }
             return output
         }
     }
