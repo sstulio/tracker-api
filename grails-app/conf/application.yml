@@ -84,7 +84,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: validate
+            dbCreate: update
             url: jdbc:mysql://35.190.183.255/tracker
     test:
         dataSource:

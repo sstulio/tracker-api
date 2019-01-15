@@ -21,4 +21,6 @@ class Tool {
         location lazy: false
         category lazy: false
     }
+
+    static hasMany = [transitions: Transition]
 }

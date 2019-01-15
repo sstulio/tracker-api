@@ -7,6 +7,7 @@ import static org.springframework.http.HttpStatus.*
 class ToolController {
 
     ToolService toolService
+    TransitionService transitionService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -28,7 +29,7 @@ class ToolController {
         try {
             toolService.save(tool)
         } catch (ValidationException e) {
-            respond tool.errors, view:'create'
+            respond tool.errors, view: 'create'
             return
         }
 
@@ -36,19 +37,31 @@ class ToolController {
     }
 
     def update(Tool tool) {
-        if (tool == null) {
-            render status: NOT_FOUND
-            return
-        }
-
         try {
+
+            if (tool == null) {
+                render status: NOT_FOUND
+                return
+            }
+
+            Location beforeLocation = tool.getPersistentValue('location')
+
+            if (tool.location != beforeLocation) {
+                Transition transition = new Transition()
+                transition.setTool(tool)
+                transition.setBeforeLocation(beforeLocation)
+                transition.setAfterLocation(tool.getLocation())
+                transition.setTransitionDate(new Date())
+                transitionService.save(transition)
+            }
+
             toolService.save(tool)
+            render tool as JSON
+
         } catch (ValidationException e) {
-            respond tool.errors, view:'edit'
+            respond tool.errors, view: 'edit'
             return
         }
-
-        render tool as JSON
     }
 
     def delete(Long id) {
