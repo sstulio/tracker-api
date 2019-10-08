@@ -10,10 +10,14 @@ class UrlMappings {
         put "/api/$controller/$id(.$format)?"(action:"update")
         patch "/api/$controller/$id(.$format)?"(action:"patch")
 
+
+        get "/api/$controller/$id(.$format)?/transitions"(action:"transitions")
+
         "/"(controller: 'root', action:'index')
 
         "500"(view: '/error')
         "404"(controller: 'root', action:'index')
+
     }
 
     static excludes = [
