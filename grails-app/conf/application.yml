@@ -85,7 +85,7 @@ environments:
     development:
         dataSource:
             dbCreate: update
-            url: jdbc:mysql://35.190.183.255/tracker
+            url: jdbc:mysql://35.229.115.44/tracker
     test:
         dataSource:
             dbCreate: update
@@ -93,7 +93,7 @@ environments:
     production:
         dataSource:
             dbCreate: validate
-            url: jdbc:mysql://35.190.183.255/tracker
+            url: jdbc:mysql://35.229.115.44/tracker
             properties:
                 jmxEnabled: true
                 initialSize: 5
